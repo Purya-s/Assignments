@@ -8,66 +8,38 @@ using namespace std;
 
 class Node 
 {
-private:
+public:
     int key;
     Node* left;
-    Node* right;
+    Node* right; 
 
-public:
-    Node(int key) {
-        this->key = key;
+    Node(int k) {
+        key = k;
         left = nullptr;
         right = nullptr;
     }
 
-    int getKey()  {
+    int getKey() 
+    {
         return key;
     }
 
-    Node* getLeft()  {
+    Node* getLeft()
+    {
         return left;
     }
 
-    void setLeft(Node* left) {
-        Node::left = left;
-    }
-
-    Node* getRight()  {
+    Node* getRight()
+    {
         return right;
-    }
-
-    void setRight(Node* right) {
-        Node::right = right;
     }
 
 };
 
 
-Node* newNode(int key) {
-    return new Node(key);
-}
 
-
-Node* insertRec(Node* root, int key) {
-    if (root == nullptr) {
-        return newNode(key);
-    }
-
-    if (key < root->getKey()) {
-        root->setLeft(insertRec(root->getLeft(), key));
-    }
-    else if (key > root->getKey()) {
-        root->setRight(insertRec(root->getRight(), key));
-    }
-
-    return root;
-}
-
-Node* insert(Node* root, int key) {
-    return insertRec(root, key);
-}
-
-bool search(Node* root, int key) {
+bool search(Node* root, int key)
+{
     if (root == nullptr || root->getKey() == key) {
         return root != nullptr;
     }
@@ -78,55 +50,16 @@ bool search(Node* root, int key) {
 
     return search(root->getLeft(), key);
 }
-
-void inorderTraversal(Node* root) {
-    if (root != nullptr) {
-        inorderTraversal(root->getLeft());
-        std::cout << root->getKey() << " ";
-        inorderTraversal(root->getRight());
-    }
-}
+ 
 
 
-int main() {
-    Node* root = nullptr;
 
-    while (true) {
+int main()
+{
+    Node* root = Node(10);
+    root->left=Node(11);
+    root->right=Node(12);
 
-
-        cout << "Enter a number : \n"
-            << "1. Add to tree \n"
-            << "2. Search in tree \n"
-            << "3. Exit \n";
-
-        char selected;
-        cin >> selected;
-
-        int key;
-        switch (selected) {
-        case '1':
-
-            cout << "Enter the Key: ";
-            cin >> key;
-            root = insert(root, key);
-            break;
-
-        case '2':
-            cout << "Enter the Key: ";
-            cin >> key;
-            if (search(root, key)) {
-                cout << key << " is found" << endl;
-            }
-            else {
-                cout << key << " is not found" << endl;
-            }
-            break;
-
-        case '3':
-            exit(0);
-
-        default:
-            cout << "wrong Number...";
-        }
-    }
+    searh(&root , 3);
+    
 }
